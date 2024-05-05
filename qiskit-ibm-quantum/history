@@ -1,0 +1,14 @@
+$ history
+    1  python
+    2  pip install qiskit
+    3  python
+    4  pip install IBMQ
+    5  pip install qiskit qiskit-ibm-runtime
+    6  python
+    7  python sample.py 
+    8  pip install qiskit-aer
+    9  python sample.py 
+   10  ls $HOME/.qiskit/qiskit-ibm.json
+   11  cat $HOME/.qiskit/qiskit-ibm.json
+   12  python simulator.py 
+   13  history
