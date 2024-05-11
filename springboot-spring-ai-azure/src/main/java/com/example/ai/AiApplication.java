@@ -1,20 +1,15 @@
 package com.example.ai;
 
-import org.springframework.ai.chat.ChatClient;
-import org.springframework.ai.chat.ChatResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Map;
+import java.util.Random;
 
-import org.springframework.ai.autoconfigure.azure.*;
 import org.springframework.ai.azure.openai.AzureOpenAiChatClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.azure.ai.openai.OpenAIClientBuilder;
 
 @SpringBootApplication
 @RestController
@@ -26,11 +21,13 @@ public class AiApplication {
 	@GetMapping("/")
 	public String home() {
 
+		int rand = new Random().nextInt(100);
+
 		String prompt = """
 				
-			Dear machine! Tell me sample movie quote including title and year, please!
+			Dear machine! Tell me sample movie quote including title from the year %d , please!
 
-		""";
+		""".formatted(rand);
 
 		String response = chatClient.call(prompt);
 
@@ -45,13 +42,15 @@ public class AiApplication {
 	@GetMapping("/movie")
     public Map generate() {
 
+		int rand = new Random().nextInt(100);
+
 		String prompt = """
 				
-			Dear machine! Tell me sample movie quote including title and year, please!
+			Dear machine! Tell me sample movie quote including title from the year %d , please!
 
-		""";
+		""".formatted(1924+rand);
 
-        return Map.of("Quote", chatClient.call(prompt));
+        return Map.of(prompt, chatClient.call(prompt));
     }
 
 	public static void main(String[] args) {
