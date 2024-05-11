@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
 
 @SpringBootApplication
 @RestController
@@ -39,18 +40,35 @@ public class AiApplication {
         return Map.of("generation", chatClient.call(message));
     }
 
+	@GetMapping("/client")
+	public String client() {
+		
+		RestClient restClient = RestClient.create();
+
+		String result = restClient.get().uri("http://localhost:5000/random").retrieve().body(String.class);
+
+		return result;
+
+	}
+
 	@GetMapping("/movie")
     public Map generate() {
 
-		int rand = new Random().nextInt(100);
+		//int rand = new Random().nextInt(100);
+
+		RestClient restClient = RestClient.create();
+
+		String rand = restClient.get().uri("http://localhost:5000/random").retrieve().body(String.class);
+		System.out.println(rand);
 
 		String prompt = """
 				
 			Dear machine! Tell me sample movie quote including title from the year %d , please!
 
-		""".formatted(1924+rand);
+		""".formatted(1924+Integer.parseInt(rand));
 
         return Map.of(prompt, chatClient.call(prompt));
+
     }
 
 	public static void main(String[] args) {
