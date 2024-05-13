@@ -58,14 +58,14 @@ public class AiApplication {
 
 		RestClient restClient = RestClient.create();
 
-		String rand = restClient.get().uri("http://localhost:5000/random").retrieve().body(String.class);
+		String rand = restClient.get().uri("http://localhost:5000/").retrieve().body(String.class);
 		System.out.println(rand);
 
 		String prompt = """
 				
 			Dear machine! Tell me sample movie quote including title from the year %d , please!
 
-		""".formatted(1924+Integer.parseInt(rand));
+		""".formatted(Integer.parseInt(rand));
 
         return Map.of(prompt, chatClient.call(prompt));
 

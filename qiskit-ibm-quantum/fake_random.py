@@ -22,8 +22,13 @@ job = backend.run(qr, shots=shots)
 # Get the results
 results = job.result()
 
+print("Results:", results);
+
 # Extract the bitstring (each shot is a 0 or 1)
 counts = results.get_counts(qr)
+
+print("Counts:", counts)
+
 bitstring = next(iter(counts.keys()))  # Get the first bitstring
 
 # Choose a random bit or convert the bitstring to an integer
