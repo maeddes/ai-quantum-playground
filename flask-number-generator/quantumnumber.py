@@ -1,3 +1,5 @@
+# pip install flask qiskit qiskit_ibm_runtime
+
 from flask import Flask
 import random
 
@@ -14,7 +16,8 @@ size = 7 # Number of qubits in the quantum register
 length = 100 # Number of shots
 
 # You'll need to specify the credentials when initializing QiskitRuntimeService, if they were not previously saved.
-service = QiskitRuntimeService()
+service = QiskitRuntimeService(channel="ibm_quantum", token="")
+
 backend = service.backend("ibmq_qasm_simulator")
 # backend = service.backend("ibm_brisbane")
 # backend = service.backend("ibm_kyoto")
